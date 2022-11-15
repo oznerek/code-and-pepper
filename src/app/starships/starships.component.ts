@@ -18,6 +18,8 @@ export class StarshipsComponent implements OnInit {
   starshipsList: Array<Starship> = [];
   scorePlayer1 = 0;
   scorePlayer2 = 0;
+  winner1 = false;
+  winner2 = false;
 
   constructor(
     private starshipsService: StarshipsService,
@@ -59,6 +61,8 @@ export class StarshipsComponent implements OnInit {
     this.loading = false;
   }
   protected play(hasSelectedPlayer?: boolean): void {
+    this.winner1 = false;
+    this.winner2 = false;
     this.player1 = this.starshipsList[this.getPlayer()];
     this.player2 =
       hasSelectedPlayer && this.selectedPlayer
@@ -73,7 +77,7 @@ export class StarshipsComponent implements OnInit {
   }
 
   private getPlayer(): number {
-    return Math.floor(Math.random() * this.starshipsList.length + 1);
+    return Math.floor(Math.random() * this.starshipsList.length);
   }
 
   private getWinner(): void {
@@ -81,9 +85,13 @@ export class StarshipsComponent implements OnInit {
     const crewPlayer2 = this.getCrew(this.player2!.crew);
 
     crewPlayer1 > crewPlayer2
-      ? ((this.scorePlayer1 += 1), this.openSnackBar('Player 1 win'))
+      ? ((this.scorePlayer1 += 1),
+        this.openSnackBar('Player 1 win'),
+        (this.winner1 = true))
       : crewPlayer2 > crewPlayer1
-      ? ((this.scorePlayer2 += 1), this.openSnackBar('Player 2 win'))
+      ? ((this.scorePlayer2 += 1),
+        this.openSnackBar('Player 2 win'),
+        (this.winner2 = true))
       : this.openSnackBar('We have remis');
     this.findWinner = false;
   }

@@ -18,6 +18,8 @@ export class PeopleComponent implements OnInit {
   peopleList: Array<Person> = [];
   scorePlayer1 = 0;
   scorePlayer2 = 0;
+  winner1 = false;
+  winner2 = false;
 
   constructor(
     private peopleService: PeopleService,
@@ -61,6 +63,8 @@ export class PeopleComponent implements OnInit {
   }
 
   protected play(hasSelectedPlayer?: boolean): void {
+    this.winner1 = false;
+    this.winner2 = false;
     this.player1 = this.peopleList[this.getPlayer()];
     this.player2 =
       hasSelectedPlayer && this.selectedPlayer
@@ -74,17 +78,21 @@ export class PeopleComponent implements OnInit {
   }
 
   private getPlayer(): number {
-    return Math.floor(Math.random() * this.peopleList.length + 1);
+    return Math.floor(Math.random() * this.peopleList.length);
   }
 
   private getWinner(): void {
     const massPlayer1 = this.getMass(this.player1.mass);
     const massPlayer2 = this.getMass(this.player2.mass);
-    console.log(massPlayer1, massPlayer2);
+
     massPlayer1 > massPlayer2
-      ? ((this.scorePlayer1 += 1), this.openSnackBar('Player 1 win'))
+      ? ((this.scorePlayer1 += 1),
+        this.openSnackBar('Player 1 win'),
+        (this.winner1 = true))
       : massPlayer2 > massPlayer1
-      ? ((this.scorePlayer2 += 1), this.openSnackBar('Player 2 win'))
+      ? ((this.scorePlayer2 += 1),
+        this.openSnackBar('Player 2 win'),
+        (this.winner2 = true))
       : this.openSnackBar('We have remis');
     this.findWinner = false;
   }

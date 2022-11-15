@@ -5,7 +5,7 @@
 </div>
 <ng-container *ngIf="!loading">
     <button mat-mini-fab
-            color="primary"
+            color="secondary"
             (click)="backToHome()">
         <mat-icon>arrow_back</mat-icon>
     </button>
@@ -16,9 +16,11 @@
     <app-grid-list *ngIf="player1 && player2">
         <app-person leftElement
                     class="m-auto"
+                    [class.winner]="winner1"
                     [person]="player1"></app-person>
         <app-person rightElement
-                    class="m-auto"
+                    class="m-auto winner"
+                    [class.winner]="winner2"
                     [person]="player2"
                     player="Player2"></app-person>
     </app-grid-list>
