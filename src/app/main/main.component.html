@@ -1,0 +1,32 @@
+<div class="main">
+    <h1 class="title">
+        Start your battle
+    </h1>
+    <app-grid-list>
+        <mat-card leftElement
+                  color="secondary"
+                  (click)="goToPeople()"
+                  class="player-card">
+            <mat-card-header>
+                <mat-card-title>People</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image
+                 height="400px"
+                 [src]="peopleImage"
+                 alt="player image">
+        </mat-card>
+        <mat-card rightElement
+                  (click)="goToStarships()"
+                  color="secondary"
+                  class="player-card">
+            <mat-card-header>
+                <mat-card-title>Starships</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image
+                 height="400px"
+                 [src]="shipsImage"
+                 alt="ships image">
+        </mat-card>
+    </app-grid-list>
+
+</div>

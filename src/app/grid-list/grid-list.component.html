@@ -1,0 +1,12 @@
+<mat-grid-list [cols]="cols"
+               (window:resize)="onResize($event)"
+               [rowHeight]="rowHeight +'px'"
+               gutterSize="
+               20px">
+    <mat-grid-tile>
+        <ng-content select="[leftElement]"></ng-content>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <ng-content select="[rightElement]"></ng-content>
+    </mat-grid-tile>
+</mat-grid-list>

@@ -1,0 +1,15 @@
+<mat-card class="player-card">
+    <mat-card-header>
+        <mat-card-title>{{starship.name}}</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image
+         height="400px"
+         [src]="playerImage"
+         [alt]="player">
+    <mat-card-content>
+        <p>
+            Crew : {{playerCrew}}
+        </p>
+        <mat-progress-bar [value]="playerCrew"></mat-progress-bar>
+    </mat-card-content>
+</mat-card>

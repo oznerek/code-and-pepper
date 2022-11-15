@@ -1,0 +1,57 @@
+<div *ngIf="loading"
+     class="loading">
+    <mat-spinner></mat-spinner>
+    <p>loading starhips to the game</p>
+</div>
+<ng-container *ngIf="!loading">
+    <button mat-mini-fab
+            color="secondary"
+            (click)="backToHome()">
+        <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h1 class="title">Starhips battle</h1>
+    <app-score [scorePlayer1]="scorePlayer1"
+               [scorePlayer2]="scorePlayer2"></app-score>
+
+    <app-grid-list *ngIf="player1 && player2">
+        <app-starship leftElement
+                      [starship]="player1"
+                      player="Player1"></app-starship>
+        <app-starship rightElement
+                      [starship]="player2"
+                      player="Player2"></app-starship>
+    </app-grid-list>
+
+    <div class="flex">
+        <ng-container *ngIf="starshipsList.length">
+            <div class="flex-column">
+                <p>Select an opponent</p>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose Player 2</mat-label>
+                    <mat-select [formControl]="selectedPlayer"
+                                color="secondary">
+                        <mat-option [value]="null">-</mat-option>
+                        <mat-option *ngFor="let starships of starshipsList"
+                                    [value]="starships">{{starships.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button *ngIf="selectedPlayer.value"
+                        mat-flat-button
+                        color="secondary"
+                        [disabled]="findWinner"
+                        (click)="play(true)">Play</button>
+
+            </div>
+            <div *ngIf="!selectedPlayer.value"
+                 class="flex-column">
+                <p>Or play random starhips</p>
+                <button mat-flat-button
+                        color="secondary"
+                        [disabled]="findWinner"
+                        (click)="play()">Play</button>
+            </div>
+        </ng-container>
+        <p *ngIf="!starshipsList.length">Wygląda na to, że statki się nie załadowały, Przeładuj stronę jeszcze raz</p>
+
+    </div>
+</ng-container>
